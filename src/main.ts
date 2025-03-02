@@ -11,6 +11,6 @@ export function createApp() {
 
   return { app, router }
 }
-
+// TODO this file is not used right now. 
 
 // TODO which formatter is actually being used by vscode on save? why is it not adding ";"? 
