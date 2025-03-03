@@ -36,17 +36,17 @@ jobs:
     - name: Deploy to EC2
       run: |
         # Remove existing app directory
-        ssh sudo ubuntu@13.60.52.145 'rm -rf /app/'
+        ssh ubuntu@13.60.52.145 'rm -rf /home/ubuntu/app/'
         
         # Create app directory
-        ssh sudo ubuntu@13.60.52.145 'mkdir -p /app/'
+        ssh ubuntu@13.60.52.145 'mkdir -p /home/ubuntu/app/'
         
         # Copy files to EC2
         scp -r dist/* ubuntu@13.60.52.145:/app/
-        scp package.json package-lock.json server.js ubuntu@13.60.52.145:/app/
+        scp package.json package-lock.json server.js ubuntu@13.60.52.145:/home/ubuntu/app/
         
         # Install production dependencies on the EC2 instance
-        ssh subuntu@13.60.52.145 'cd /app && npm ci --only=production'
+        ssh subuntu@13.60.52.145 'cd /home/ubuntu/app && npm ci --only=production'
         
         # Restart PM2 and potentially Nginx
-        ssh ubuntu@13.60.52.145 'cd /app && pm2 restart all'
+        ssh ubuntu@13.60.52.145 'cd /home/ubuntu/app && pm2 restart all'
