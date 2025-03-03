@@ -1,10 +1,8 @@
 // ??? why is this whole file not .ts? 
-
 import express from "express";
 import fs from 'node:fs/promises';
 
 const isProduction = process.env.NODE_ENV === 'production'
-const port = process.env.PORT || 5173
 
 // in production, use pre-built (once)
 let templateHtml = isProduction
@@ -30,7 +28,6 @@ async function CreateServer() {
 		app.use(compression())
 		app.use("/", sirv('./dist/client', { extensions: [] }))
 	}
-
 	app.use('*', async (req, res) => {
 		try {
 			const url = req.originalUrl
@@ -38,7 +35,7 @@ async function CreateServer() {
 			let render;
 			if (!isProduction) {
 				// Read index.html
-				template = await fs.readFile('./index.html', 'utf-8');
+				template = await fs.readFile(';.html', 'utf-8');
 
 				// ??? what does "vite.transformIndexHtml" do? 
 				// 	TODO log result and input for vite.transformIndexHtml
@@ -86,6 +83,7 @@ async function CreateServer() {
 		}
 	})
 
+	const port = 5173; // same as nginx setup
 	app.listen(port, () => {
 		console.log(`Server started at http://localhost:${port}`)
 	})
