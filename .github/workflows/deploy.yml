@@ -46,7 +46,7 @@ jobs:
         scp package.json package-lock.json server.js ubuntu@13.60.52.145:/home/ubuntu/app/
         
         # Install production dependencies on the EC2 instance
-        ssh subuntu@13.60.52.145 'cd /home/ubuntu/app && npm ci --only=production'
+        ssh ubuntu@13.60.52.145 'cd /home/ubuntu/app && npm ci --only=production'
         
         # Restart PM2 and potentially Nginx
         ssh ubuntu@13.60.52.145 'cd /home/ubuntu/app && pm2 restart all'
