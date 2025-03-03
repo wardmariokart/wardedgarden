@@ -42,7 +42,7 @@ jobs:
         ssh ubuntu@13.60.52.145 'mkdir -p /home/ubuntu/app/'
         
         # Copy files to EC2
-        scp -r dist/* ubuntu@13.60.52.145:/app/
+        scp -r dist/* ubuntu@13.60.52.145:/home/ubuntu/app/
         scp package.json package-lock.json server.js ubuntu@13.60.52.145:/home/ubuntu/app/
         
         # Install production dependencies on the EC2 instance
