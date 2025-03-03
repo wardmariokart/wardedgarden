@@ -31,22 +31,22 @@ jobs:
     - name: Add EC2 host to known_hosts
       run: |
         mkdir -p ~/.ssh
-        ssh-keyscan -H 16.171.148.206 >> ~/.ssh/known_hosts
+        ssh-keyscan -H 13.60.52.145 >> ~/.ssh/known_hosts
       
     - name: Deploy to EC2
       run: |
         # Remove existing app directory
-        ssh ubuntu@16.171.148.206 'rm -rf /app/'
+        ssh ubuntu@13.60.52.145 'rm -rf /app/'
         
         # Create app directory
-        ssh ubuntu@16.171.148.206 'mkdir -p /app/'
+        ssh ubuntu@13.60.52.145 'mkdir -p /app/'
         
         # Copy files to EC2
-        scp -r dist/* ubuntu@16.171.148.206:/app/
-        scp package.json package-lock.json server.js ubuntu@16.171.148.206:/app/
+        scp -r dist/* ubuntu@13.60.52.145:/app/
+        scp package.json package-lock.json server.js ubuntu@13.60.52.145:/app/
         
         # Install production dependencies on the EC2 instance
-        ssh ubuntu@16.171.148.206 'cd /app && npm ci --only=production'
+        ssh ubuntu@13.60.52.145 'cd /app && npm ci --only=production'
         
         # Restart PM2 and potentially Nginx
-        ssh ubuntu@16.171.148.206 'cd /app && pm2 restart all'
+        ssh ubuntu@13.60.52.145 'cd /app && pm2 restart all'
