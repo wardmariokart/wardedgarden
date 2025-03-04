@@ -1,6 +1,6 @@
 import express from "express";
 import fs from 'node:fs/promises';
-
+import helmet from "helmet";
 const isProduction = process.env.NODE_ENV === 'production'
 
 // in production, use pre-built (once)
@@ -10,7 +10,7 @@ let templateHtml = isProduction
 
 async function CreateServer() {
 	const app = express();
-
+	app.use(helmet());
 	// TODO remove jsdoc when switching over to .ts file
 	/** @type {import('vite').ViteDevServer | undefined} */
 	let vite
