@@ -1,4 +1,3 @@
-// ??? why is this whole file not .ts? 
 import express from "express";
 import fs from 'node:fs/promises';
 
@@ -28,6 +27,16 @@ async function CreateServer() {
 		app.use(compression())
 		app.use("/", sirv('./dist/client', { extensions: [] }))
 	}
+
+	// Add middleware to set HSTS header 
+	app.use((_req, res, next) => {
+		res.setHeader(
+			'Strict-Transport-Security',
+			'max-age=15552000; includeSubDomains; preload'
+		);
+		next();
+	});
+
 	app.use('*', async (req, res) => {
 		try {
 			const url = req.originalUrl
